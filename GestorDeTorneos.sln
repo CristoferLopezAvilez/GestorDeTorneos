@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorneoForm", "TorneoForm\TorneoForm.csproj", "{53E91861-E12D-4B2A-A974-4B4271B9A392}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{138E1881-DB95-42F0-9EAE-9496B92E7736}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53E91861-E12D-4B2A-A974-4B4271B9A392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53E91861-E12D-4B2A-A974-4B4271B9A392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53E91861-E12D-4B2A-A974-4B4271B9A392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53E91861-E12D-4B2A-A974-4B4271B9A392}.Release|Any CPU.Build.0 = Release|Any CPU
+		{138E1881-DB95-42F0-9EAE-9496B92E7736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{138E1881-DB95-42F0-9EAE-9496B92E7736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{138E1881-DB95-42F0-9EAE-9496B92E7736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{138E1881-DB95-42F0-9EAE-9496B92E7736}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {574BBDE3-DC17-4A1E-87CE-F134A7F16979}
+	EndGlobalSection
+EndGlobal
