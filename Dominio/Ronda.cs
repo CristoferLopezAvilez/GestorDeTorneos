@@ -27,25 +27,25 @@ namespace Dominio
             get
             {
                 if (!_partidas.Any())
-                    return Estado.NoCreada;
+                    return Estado.RondaNoCreada;
                 if (TerminoRonda())
-                    return Estado.Finalizada;
-                return Estado.EnCurso;
+                    return Estado.RondaFinalizada;
+                return Estado.RondaEnCurso;
             }
         }
 
         public enum Estado
         {
-            NoCreada,
-            EnCurso,
-            Finalizada
+            RondaNoCreada,
+            RondaEnCurso,
+            RondaFinalizada
         }
 
         public void AgregarPartida(Partida partida)
         {
             if (partida == null)
                 throw new ArgumentNullException(nameof(partida)); 
-            if (EstadoRonda == Estado.Finalizada)
+            if (EstadoRonda == Estado.RondaFinalizada)
                 throw new InvalidOperationException("No se pueden agregar partidas a una ronda finalizada.");
             _partidas.Add(partida);
         }
