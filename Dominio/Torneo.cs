@@ -9,6 +9,17 @@ namespace Dominio
 {
     internal class Torneo
     {
+
+        /*
+        PasarASiguienteRonda() -> cuando todas las partidas tienen resultado
+       
+  
+        FinalizarTorneo()  
+  
+        ObtenerRondaActual()
+         */
+
+
         public Guid Id { get; set; }
 
         public string NombreTorneo { get; set; }
@@ -18,16 +29,116 @@ namespace Dominio
         public RitmoTorneo Ritmo { get; set; }
 
         public List<Jugador> Jugadores { get; set; } = new List<Jugador>();
-        public List<Ronda> Rondas { get; set; } = new List<Ronda>();
+
+        private readonly List<Ronda> _rondas = new List<Ronda>();
+        public IReadOnlyList<Ronda> Rondas => _rondas;
 
         public TablaDePosicion TablaDePosicion { get; set; }
 
-        public EstadoTorneo Estado { get; set; }
+        public EstadoTorneo Estado
+        {
+            get
+            {
+                if (_rondas.Count == 0)
+                    return EstadoTorneo.TorneoSinCrear;
+
+                if (RondaActual == CantidadRondas &&
+                    _rondas.All(r => r.EstadoRonda == Ronda.Estado.RondaFinalizada))
+                {
+                    return EstadoTorneo.TorneoFinalizado;
+                }
+
+                return EstadoTorneo.TorneoEnCurso;
+            }
+        }
 
         public int RondaActual { get; set; }
 
         public int CantidadRondas { get; set; }
         public string Lugar { get; set; }
+
+        public void AgregarJugador(Jugador jugador)
+        {
+            Jugadores.Add(jugador);
+        }
+
+        public void AgregarRonda(Ronda ronda)
+        {
+            _rondas.Add(ronda);
+        }
+
+        public void IniciarTorneo()
+        {
+            if (Jugadores.Count > 2)
+            {
+                GenerarTodasLasRondas();
+            }
+            else
+            {
+                throw new Exception("No hay suficientes jugadores");
+            }
+        }
+
+        public void GenerarTodasLasRondas()
+        {
+            RoundRobinGenerator roundRobinGenerator = new RoundRobinGenerator();
+        }
+
+        public void RegistrarResultado(int numeroRonda, int numeroMesa, Resultado resultado)
+        {
+            var ronda = _rondas.FirstOrDefault(r => r.NumeroRonda == numeroRonda);
+
+            if (ronda == null)
+                throw new Exception("Ronda no encontrada");
+
+            var partida = ronda.BuscarPartidaPorMesa(numeroMesa);
+
+            if (partida == null)
+                throw new Exception("Partida no encontrada");
+
+            partida.RegistrarResultado(resultado);
+        }
+
+
+        // --------------------------////--------------------------------------------
+        public TablaDePosicion ObtenerTablaFinal()
+        {
+            if (Estado == EstadoTorneo.TorneoFinalizado)
+            {
+                return TablaDePosicion;
+            }
+            else
+            {
+                throw new InvalidOperationException("El torneo aún no ha finalizado.");
+            }
+
+        }
+
+        public TablaDePosicion ObtenerTablaRonda()
+        {
+            if (Estado == EstadoTorneo.TorneoSinCrear)
+                throw new InvalidOperationException("El torneo aún no ha sido creado");
+
+            var rondaActual = _rondas[RondaActual - 1];
+
+            if (rondaActual.TerminoRonda())
+            {
+                //TablaDePosicion.Calcular(this);
+                return TablaDePosicion;
+            }
+            else
+            {
+                throw new InvalidOperationException("La ronda no ha finalizado");
+            }
+
+        }
+
+        public void ObtenerRondaActual()
+        {
+            
+        }
+     
+       
     }
 
     public enum EstadoTorneo
@@ -44,4 +155,6 @@ namespace Dominio
         Rapid,
         Clasico
     }
+
+
 }

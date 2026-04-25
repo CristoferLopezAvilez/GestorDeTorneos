@@ -12,41 +12,48 @@ namespace Dominio
         VictoriaNegra,
         Empate
     }
+
     internal class Partida
     {
-        public Jugador JugadorBlancas {  get; set; }
+        public Jugador JugadorBlancas { get; set; }
         public Jugador JugadorNegras { get; set; }
+
         private Resultado? resultado;
-        
-        public int NumeroMesa { get; set; }
+
+        public int NumeroMesa { get; private set; }
+        public int NumeroRonda { get; private set; }
+
+        public Partida(int numeroRonda, int numeroMesa)
+        {
+            NumeroRonda = numeroRonda;
+            NumeroMesa = numeroMesa;
+        }
 
         public void RegistrarResultado(Resultado resultado)
         {
-            this.resultado = resultado;
+           this.resultado = resultado;
         }
 
         public bool TieneResultado()
         {
             return resultado.HasValue;
         }
+
         public bool GanoBlancas()
         {
             return resultado == Resultado.VictoriaBlanca;
-         
         }
+
         public bool GanoNegras()
         {
             return resultado == Resultado.VictoriaNegra;
-          
         }
 
         public bool EsEmpate()
         {
             return resultado == Resultado.Empate;
-          
         }
 
-      
         public (double blancas, double negras) ObtenerPuntos()
         {
             if (!TieneResultado())
@@ -60,7 +67,6 @@ namespace Dominio
 
             return (0.5, 0.5);
         }
-
-
     }
 }
+    

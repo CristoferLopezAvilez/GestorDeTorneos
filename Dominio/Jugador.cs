@@ -13,7 +13,7 @@ namespace Dominio
         public string Categoria { get; set; }
         public string Club { get; set; }
 
-       public double Puntos { get; set; }
+    
 
 
     }
