@@ -10,16 +10,7 @@ namespace Dominio
     internal class Torneo
     {
 
-        /*
-        PasarASiguienteRonda() -> cuando todas las partidas tienen resultado
-       
-  
-        FinalizarTorneo()  
-  
-        ObtenerRondaActual()
-         */
-
-
+      
         public Guid Id { get; set; }
 
         public string NombreTorneo { get; set; }
@@ -52,7 +43,7 @@ namespace Dominio
             }
         }
 
-        public int RondaActual { get; set; }
+        public int RondaActual { get; private set; } = 0;
 
         public int CantidadRondas { get; set; }
         public string Lugar { get; set; }
@@ -99,18 +90,12 @@ namespace Dominio
             partida.RegistrarResultado(resultado);
         }
 
-
-        // --------------------------////--------------------------------------------
         public TablaDePosicion ObtenerTablaFinal()
         {
-            if (Estado == EstadoTorneo.TorneoFinalizado)
-            {
-                return TablaDePosicion;
-            }
-            else
-            {
+            if (Estado != EstadoTorneo.TorneoFinalizado)
                 throw new InvalidOperationException("El torneo aún no ha finalizado.");
-            }
+
+            return TablaDePosicion;
 
         }
 
@@ -119,23 +104,46 @@ namespace Dominio
             if (Estado == EstadoTorneo.TorneoSinCrear)
                 throw new InvalidOperationException("El torneo aún no ha sido creado");
 
+            if (RondaActual == 0)
+                throw new InvalidOperationException("El torneo no ha comenzado");
+
             var rondaActual = _rondas[RondaActual - 1];
 
-            if (rondaActual.TerminoRonda())
-            {
-                //TablaDePosicion.Calcular(this);
-                return TablaDePosicion;
-            }
-            else
-            {
+            if (!rondaActual.TerminoRonda())
                 throw new InvalidOperationException("La ronda no ha finalizado");
-            }
+
+            return TablaDePosicion;
 
         }
 
-        public void ObtenerRondaActual()
+        public int ObtenerRondaActual()
         {
-            
+            return RondaActual;
+        }
+
+        public void FinalizarTorneo()
+        {
+
+            if (Estado != EstadoTorneo.TorneoFinalizado)
+                throw new InvalidOperationException("El torneo aún no ha finalizado");
+
+            // Acá podrías hacer lógica de dominio más adelante
+        }
+
+        public void PasarASiguienteRonda()
+        {
+            if (RondaActual == 0)
+                throw new InvalidOperationException("El torneo no ha comenzado");
+
+            var rondaActual = _rondas[RondaActual - 1];
+
+            if (!rondaActual.TerminoRonda())
+                throw new InvalidOperationException("La ronda actual no ha finalizado");
+
+            if (RondaActual < CantidadRondas)
+            {
+                RondaActual += 1;
+            }
         }
      
        

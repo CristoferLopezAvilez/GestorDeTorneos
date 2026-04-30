@@ -54,18 +54,22 @@ namespace Dominio
             return resultado == Resultado.Empate;
         }
 
-        public (double blancas, double negras) ObtenerPuntos()
+       
+        public double ObtenerPuntos(Jugador jugador)
         {
             if (!TieneResultado())
                 throw new InvalidOperationException("No se puede calcular puntos sin resultado.");
 
-            if (GanoBlancas())
-                return (1, 0);
+            if (EsEmpate())
+                return 0.5;
 
-            if (GanoNegras())
-                return (0, 1);
+            if (JugadorBlancas.Id == jugador.Id && GanoBlancas())
+                return 1;
 
-            return (0.5, 0.5);
+            if (JugadorNegras.Id == jugador.Id && GanoNegras())
+                return 1;
+
+            return 0;
         }
     }
 }

@@ -50,6 +50,9 @@ namespace Dominio
             if (EstadoRonda == Estado.RondaFinalizada)
                 throw new InvalidOperationException("No se pueden agregar partidas a una ronda finalizada.");
 
+            if (_partidas.Any(p => p.NumeroMesa == partida.NumeroMesa))
+                throw new InvalidOperationException("Ya existe una partida en esa mesa.");
+
             _partidas.Add(partida);
         }
 
@@ -60,6 +63,7 @@ namespace Dominio
 
         public Partida BuscarPartidaPorMesa(int numeroMesa)
         {
+          
             return _partidas.FirstOrDefault(p => p.NumeroMesa == numeroMesa);
         }
 
@@ -67,8 +71,6 @@ namespace Dominio
         {
             return _partidas.Any() && _partidas.All(p => p.TieneResultado());
         }
-
-
 
 
     }
