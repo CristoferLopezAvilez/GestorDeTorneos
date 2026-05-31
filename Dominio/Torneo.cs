@@ -99,7 +99,7 @@ namespace Dominio
 
         }
 
-        public TablaDePosicion ObtenerTablaRonda()
+        public void ObtenerTablaRonda()
         {
             if (Estado == EstadoTorneo.TorneoNoIniciado)
                 throw new InvalidOperationException("El torneo aún no ha sido creado");
@@ -112,7 +112,7 @@ namespace Dominio
             if (!rondaActual.TerminoRonda())
                 throw new InvalidOperationException("La ronda no ha finalizado");
 
-            return TablaDePosicion;
+            TablaDePosicion.RecalcularTabla(Rondas.ToList());
 
         }
 

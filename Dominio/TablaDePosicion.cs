@@ -8,7 +8,7 @@ namespace Dominio
 {
     internal class TablaDePosicion
     {
-        public int NumeroRonda { get; private set; }
+        public int RondaRepresentada { get; private set; }
         private List<ItemTablaPosicion> _items { get; set; } = new List<ItemTablaPosicion>();
 
         public IReadOnlyList<ItemTablaPosicion> Items => _items;
@@ -21,16 +21,12 @@ namespace Dominio
             // Si no hay rondas, limpiar tabla
             if (!rondas.Any())
             {
-                NumeroRonda = 0;
-                _items = new List<ItemTablaPosicion>();
+                RondaRepresentada = 0;
+                _items.Clear();
                 return;
             }
 
-            NumeroRonda = rondas
-            .Where(r => r.ObtenerPartidas().Any(p => p.TieneResultado()))
-            .Select(r => r.NumeroDeRonda)
-            .DefaultIfEmpty(0)
-            .Max();
+            RondaRepresentada = ObtenerUltimaRondaConResultados(rondas);
 
             // Recolectar todas las partidas de las rondas provistas
             var partidas = rondas.SelectMany(r => r.ObtenerPartidas()).ToList();
@@ -72,6 +68,15 @@ namespace Dominio
                 .ThenBy(i => i.Derrotas)
                 .ThenBy(i => i.Jugador.NombreCompleto)
                 .ToList();
+        }
+
+        private int ObtenerUltimaRondaConResultados(List<Ronda> rondas)
+        {
+            return rondas
+                .Where(r => r.ObtenerPartidas().Any(p => p.TieneResultado()))
+                .Select(r => r.NumeroDeRonda)
+                .DefaultIfEmpty(0)
+                .Max();
         }
     }
 }
