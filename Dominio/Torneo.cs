@@ -31,7 +31,7 @@ namespace Dominio
             get
             {
                 if (_rondas.Count == 0)
-                    return EstadoTorneo.TorneoSinCrear;
+                    return EstadoTorneo.TorneoNoIniciado;
 
                 if (RondaActual == CantidadRondas &&
                     _rondas.All(r => r.EstadoRonda == Ronda.Estado.RondaFinalizada))
@@ -77,7 +77,7 @@ namespace Dominio
 
         public void RegistrarResultado(int numeroRonda, int numeroMesa, Resultado resultado)
         {
-            var ronda = _rondas.FirstOrDefault(r => r.NumeroRonda == numeroRonda);
+            var ronda = _rondas.FirstOrDefault(r => r.NumeroDeRonda == numeroRonda);
 
             if (ronda == null)
                 throw new Exception("Ronda no encontrada");
@@ -101,7 +101,7 @@ namespace Dominio
 
         public TablaDePosicion ObtenerTablaRonda()
         {
-            if (Estado == EstadoTorneo.TorneoSinCrear)
+            if (Estado == EstadoTorneo.TorneoNoIniciado)
                 throw new InvalidOperationException("El torneo aún no ha sido creado");
 
             if (RondaActual == 0)
@@ -114,6 +114,13 @@ namespace Dominio
 
             return TablaDePosicion;
 
+        }
+
+        public IReadOnlyList<Jugador> ObtenerJugadoresOrdenados()
+        {
+            return Jugadores
+                .OrderBy(j => j.NombreCompleto)
+                .ToList();
         }
 
         public int ObtenerRondaActual()
@@ -144,6 +151,10 @@ namespace Dominio
             {
                 RondaActual += 1;
             }
+            else
+            {
+                throw new InvalidOperationException("No hay más rondas disponibles");
+            }
         }
      
        
@@ -151,7 +162,7 @@ namespace Dominio
 
     public enum EstadoTorneo
     {
-        TorneoSinCrear,
+        TorneoNoIniciado,
         TorneoEnCurso,
         TorneoFinalizado
     }

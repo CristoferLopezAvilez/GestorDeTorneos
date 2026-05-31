@@ -8,6 +8,9 @@ namespace Dominio
 {
     internal class ItemTablaPosicion
     {
+        // FALTAN LOS DESEMPATES: BUCHOLTZ, BUCHOLTZ MEDIO,
+        // BUCHOLTZ PROGRESIVO, RESULTADO INDIVIDUAL, ETC.
+        // PODRÍA SER EN CLASES SEPARADAS
         public Jugador Jugador { get; set; }
         public int PartidasJugadas { get; set; }
         public int Victorias { get; set; }
@@ -24,7 +27,7 @@ namespace Dominio
 
             PartidasJugadas++;
 
-            double puntos = partida.ObtenerPuntos(Jugador);
+            double puntos = partida.ObtenerResultado(Jugador);
 
             if (puntos == 1)
                 Victorias++;
@@ -33,5 +36,14 @@ namespace Dominio
             else
                 Derrotas++;
         }
+
+        public void ReiniciarEstadisticas()
+        {
+            PartidasJugadas = 0;
+            Victorias = 0;
+            Empates = 0;
+            Derrotas = 0;
+        }
+      
     }
 }

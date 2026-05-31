@@ -18,47 +18,47 @@ namespace Dominio
         public Jugador JugadorBlancas { get; set; }
         public Jugador JugadorNegras { get; set; }
 
-        private Resultado? resultado;
+        private Resultado? _resultado;
 
         public int NumeroMesa { get; private set; }
-        public int NumeroRonda { get; private set; }
+        public int NumeroDeRonda { get; private set; }
 
-        public Partida(int numeroRonda, int numeroMesa)
+        public Partida(int numeroDeRonda, int numeroMesa)
         {
-            NumeroRonda = numeroRonda;
+            NumeroDeRonda = numeroDeRonda;
             NumeroMesa = numeroMesa;
         }
 
         public void RegistrarResultado(Resultado resultado)
         {
-           this.resultado = resultado;
+           _resultado = resultado;
         }
 
         public bool TieneResultado()
         {
-            return resultado.HasValue;
+            return _resultado.HasValue;
         }
 
         public bool GanoBlancas()
         {
-            return resultado == Resultado.VictoriaBlanca;
+            return _resultado == Resultado.VictoriaBlanca;
         }
 
         public bool GanoNegras()
         {
-            return resultado == Resultado.VictoriaNegra;
+            return _resultado == Resultado.VictoriaNegra;
         }
 
         public bool EsEmpate()
         {
-            return resultado == Resultado.Empate;
+            return _resultado == Resultado.Empate;
         }
 
        
-        public double ObtenerPuntos(Jugador jugador)
+        public double ObtenerResultado(Jugador jugador)
         {
             if (!TieneResultado())
-                throw new InvalidOperationException("No se puede calcular puntos sin resultado.");
+                throw new InvalidOperationException("No tiene resultado");
 
             if (EsEmpate())
                 return 0.5;

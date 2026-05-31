@@ -9,18 +9,10 @@ namespace Dominio
     internal class Ronda
     {
  
-        public int NumeroRonda { get; }
+        public int NumeroDeRonda { get; }
 
         private readonly List<Partida> _partidas = new List<Partida>();
-
-        public Ronda(int numeroRonda)
-        {
-            if (numeroRonda <= 0)
-                throw new ArgumentException("El número de ronda debe ser mayor a cero.");
-
-            NumeroRonda = numeroRonda;
-        }
-
+               
         public Estado EstadoRonda
         {
             get
@@ -33,6 +25,13 @@ namespace Dominio
 
                 return Estado.RondaEnCurso;
             }
+        }
+        public Ronda(int numeroDeRonda)
+        {
+            if (numeroDeRonda <= 0)
+                throw new ArgumentException("El número de ronda debe ser mayor a cero.");
+
+            NumeroDeRonda = numeroDeRonda;
         }
 
         public enum Estado
