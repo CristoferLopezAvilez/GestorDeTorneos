@@ -18,20 +18,15 @@ namespace Dominio
             if (rondas == null)
                 throw new ArgumentNullException(nameof(rondas));
 
-            // Si no hay rondas, limpiar tabla
-            if (!rondas.Any())
-            {
-                RondaRepresentada = 0;
-                _items.Clear();
+            if (!InicializarEstado(rondas))
                 return;
-            }
-
-            RondaRepresentada = ObtenerUltimaRondaConResultados(rondas);
 
             // Recolectar todas las partidas de las rondas provistas
-            var partidas = rondas.SelectMany(r => r.ObtenerPartidas()).ToList();
+            var partidas = rondas
+                .SelectMany(r => r.ObtenerPartidas())
+                .ToList();
 
-            // Obtener jugadores únicos encontrados en las partidas (si alguno es null, se ignora)
+            // Obtener jugadores únicos encontrados en las partidas
             var jugadores = partidas
                 .SelectMany(p => new[] { p.JugadorBlancas, p.JugadorNegras })
                 .Where(j => j != null)
@@ -44,23 +39,37 @@ namespace Dominio
                 .Select(j => new ItemTablaPosicion { Jugador = j })
                 .ToList();
 
+            ProcesarResultados(partidas);
+
+            OrdenarTabla();
+        }
+
+        private void ProcesarResultados(List<Partida> partidas)
+        {
             // Índice por Id para acceso rápido
             var itemsPorId = _items.ToDictionary(i => i.Jugador.Id);
 
-            // Procesar únicamente partidas con resultado (Evita llamadas inválidas a ObtenerPuntos)
             foreach (var partida in partidas)
             {
                 if (!partida.TieneResultado())
                     continue;
 
-                if (partida.JugadorBlancas != null && itemsPorId.TryGetValue(partida.JugadorBlancas.Id, out var itemBlancas))
+                if (partida.JugadorBlancas != null &&
+                    itemsPorId.TryGetValue(partida.JugadorBlancas.Id, out var itemBlancas))
+                {
                     itemBlancas.AgregarResultado(partida);
+                }
 
-                if (partida.JugadorNegras != null && itemsPorId.TryGetValue(partida.JugadorNegras.Id, out var itemNegras))
+                if (partida.JugadorNegras != null &&
+                    itemsPorId.TryGetValue(partida.JugadorNegras.Id, out var itemNegras))
+                {
                     itemNegras.AgregarResultado(partida);
+                }
             }
+        }
 
-            // Ordenar la tabla: puntos desc, victorias desc, empates desc, derrotas asc, nombre asc
+        private void OrdenarTabla()
+        {
             _items = _items
                 .OrderByDescending(i => i.Puntos)
                 .ThenByDescending(i => i.Victorias)
@@ -77,6 +86,20 @@ namespace Dominio
                 .Select(r => r.NumeroDeRonda)
                 .DefaultIfEmpty(0)
                 .Max();
+        }
+
+        private bool InicializarEstado(List<Ronda> rondas)
+        {
+            // Si no hay rondas, limpiar tabla
+            if (!rondas.Any())
+            {
+                RondaRepresentada = 0;
+                _items.Clear();
+                return false;
+            }
+
+            RondaRepresentada = ObtenerUltimaRondaConResultados(rondas);
+            return true;
         }
     }
 }
