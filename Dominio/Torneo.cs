@@ -55,11 +55,27 @@ namespace Dominio
 
         public void AgregarJugador(Jugador jugador)
         {
+            if (jugador == null)
+                throw new ArgumentNullException(nameof(jugador));
+
+            if (Estado != EstadoTorneo.TorneoNoIniciado)
+                throw new InvalidOperationException(
+                    "No se pueden agregar jugadores una vez iniciado el torneo.");
+
+            if (_jugadores.Any(j => j.Id == jugador.Id))
+                throw new InvalidOperationException(
+                    "El jugador ya está registrado.");
+
             _jugadores.Add(jugador);
         }
 
-        public void AgregarRonda(Ronda ronda)
+        // Guardo este método para el futuro, cuando se implemente el sistema suizo,
+        // para permitir registrar rondas manualmente en caso de ser necesario.
+        public void RegistrarRonda(Ronda ronda)
         {
+            if (ronda == null)
+                throw new ArgumentNullException(nameof(ronda));
+
             _rondas.Add(ronda);
         }
 
