@@ -79,19 +79,39 @@ namespace Dominio
             _rondas.Add(ronda);
         }
 
+        /// <summary>
+        /// Lo invoca RoundRobinGenerator al finalizar la generación para
+        /// que el torneo sepa cuántas rondas tiene en total.
+        /// </summary>
+        internal void EstablecerCantidadRondas(int cantidad)
+        {
+            if (cantidad <= 0)
+                throw new ArgumentException("La cantidad de rondas debe ser mayor a cero.");
+
+            CantidadRondas = cantidad;
+        }
+
         public void IniciarTorneo()
         {
             if (Jugadores.Count < 2)
                 throw new Exception("No hay suficientes jugadores");
 
+            if (_rondas.Any())
+                throw new InvalidOperationException(
+                    "El torneo ya fue iniciado.");
+
             GenerarTodasLasRondas();
 
-            
         }
 
         public void GenerarTodasLasRondas()
         {
-            RoundRobinGenerator roundRobinGenerator = new RoundRobinGenerator();
+            var generador = new RoundRobinGenerator();
+            var rondasGeneradas = generador.Generar(Jugadores);
+
+            _rondas.Clear();
+            _rondas.AddRange(rondasGeneradas);
+            CantidadRondas = rondasGeneradas.Count;
         }
 
         public void RegistrarResultado(int numeroRonda, int numeroMesa, Resultado resultado)
