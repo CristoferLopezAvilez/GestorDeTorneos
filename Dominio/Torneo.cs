@@ -71,25 +71,14 @@ namespace Dominio
 
         // Guardo este método para el futuro, cuando se implemente el sistema suizo,
         // para permitir registrar rondas manualmente en caso de ser necesario.
-        public void RegistrarRonda(Ronda ronda)
+        /*public void RegistrarRonda(Ronda ronda)
         {
             if (ronda == null)
                 throw new ArgumentNullException(nameof(ronda));
 
             _rondas.Add(ronda);
-        }
+        }*/
 
-        /// <summary>
-        /// Lo invoca RoundRobinGenerator al finalizar la generación para
-        /// que el torneo sepa cuántas rondas tiene en total.
-        /// </summary>
-        internal void EstablecerCantidadRondas(int cantidad)
-        {
-            if (cantidad <= 0)
-                throw new ArgumentException("La cantidad de rondas debe ser mayor a cero.");
-
-            CantidadRondas = cantidad;
-        }
 
         public void IniciarTorneo()
         {
