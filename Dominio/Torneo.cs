@@ -116,6 +116,8 @@ namespace Dominio
                 throw new Exception("Partida no encontrada");
 
             partida.RegistrarResultado(resultado);
+
+            RegistrarVictoriasAutomaticasBye();
         }
 
         public TablaDePosicion ObtenerTablaFinal()
@@ -162,7 +164,23 @@ namespace Dominio
             return rondaActiva?.NumeroDeRonda ?? CantidadRondas;
         }
 
-
+        private void RegistrarVictoriasAutomaticasBye()
+        {
+            foreach (var ronda in _rondas)
+            {
+                foreach (var partida in ronda.Partidas)
+                {
+                    if (partida.JugadorBlancas.Id == -1)
+                    {
+                        partida.RegistrarResultado(Resultado.VictoriaNegra);
+                    }
+                    else if (partida.JugadorNegras.Id == -1)
+                    {
+                        partida.RegistrarResultado(Resultado.VictoriaBlanca);
+                    }
+                }
+            }
+        }
     }
 
     public enum EstadoTorneo

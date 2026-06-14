@@ -46,9 +46,6 @@ namespace Dominio
                     var jugadorA = slots[i];
                     var jugadorB = slots[n - 1 - i];
 
-                    if (jugadorA.Id == IdBye || jugadorB.Id == IdBye)
-                        continue;
-
                     var partida = CrearPartida(
                         nroRonda,
                         mesa,

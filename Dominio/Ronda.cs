@@ -12,7 +12,15 @@ namespace Dominio
         public int NumeroDeRonda { get; }
 
         private readonly List<Partida> _partidas = new List<Partida>();
-               
+
+        public List<Partida> Partidas 
+        {
+            get
+            {
+                return _partidas;
+            }
+        }
+
         public Estado EstadoRonda
         {
             get
