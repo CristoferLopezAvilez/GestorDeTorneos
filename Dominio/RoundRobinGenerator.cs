@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// TODO:
+// Mejorar distribución de colores y estudiar variantes del sistema Berger
+// una vez validado el MVP.
+
 namespace Dominio
 {
     /// <summary>
@@ -36,9 +40,9 @@ namespace Dominio
 
             var rondas = new List<Ronda>();
 
-            for (int nroRonda = 1; nroRonda <= cantidadRondas; nroRonda++)
+            for (int numeroRonda = 1; numeroRonda <= cantidadRondas; numeroRonda++)
             {
-                var ronda = new Ronda(nroRonda);
+                var ronda = new Ronda(numeroRonda);
                 int mesa = 1;
 
                 for (int i = 0; i < n / 2; i++)
@@ -47,7 +51,7 @@ namespace Dominio
                     var jugadorB = slots[n - 1 - i];
 
                     var partida = CrearPartida(
-                        nroRonda,
+                        numeroRonda,
                         mesa,
                         i,
                         jugadorA,
@@ -56,26 +60,25 @@ namespace Dominio
                     ronda.AgregarPartida(partida);
                     mesa++;
                 }
-
+                
                 rondas.Add(ronda);
                 RotarSlots(slots);
             }
-
             return rondas;
         }
 
         private Partida CrearPartida(
-            int nroRonda,
-            int nroMesa,
+            int numeroRonda,
+            int numeroMesa,
             int indiceMesa,
             Jugador jugadorA,
             Jugador jugadorB)
         {
-            var partida = new Partida(nroRonda, nroMesa);
+            var partida = new Partida(numeroRonda, numeroMesa);
 
             bool primeraMesa = indiceMesa == 0;
 
-            if (primeraMesa && nroRonda % 2 == 0)
+            if (primeraMesa && numeroRonda % 2 == 0)
             {
                 partida.JugadorBlancas = jugadorB;
                 partida.JugadorNegras = jugadorA;
