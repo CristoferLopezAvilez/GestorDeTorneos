@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class ItemTablaPosicion
+    public class ItemTablaPosicion
     {
         // FALTAN LOS DESEMPATES: BUCHOLTZ, BUCHOLTZ MEDIO,
         // BUCHOLTZ PROGRESIVO, RESULTADO INDIVIDUAL, ETC.

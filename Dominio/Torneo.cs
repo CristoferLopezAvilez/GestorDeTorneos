@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class Torneo
+    public class Torneo
     {
 
       

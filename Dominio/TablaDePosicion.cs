@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class TablaDePosicion
+    public class TablaDePosicion
     {
         public int RondaRepresentada { get; private set; }
         private List<ItemTablaPosicion> _items { get; set; } = new List<ItemTablaPosicion>();

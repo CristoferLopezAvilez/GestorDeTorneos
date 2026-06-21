@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    enum Resultado
+    public enum Resultado
     {
         VictoriaBlanca,
         VictoriaNegra,
         Empate
     }
 
-    internal class Partida
+    public class Partida
     {
         public Jugador JugadorBlancas { get; set; }
         public Jugador JugadorNegras { get; set; }

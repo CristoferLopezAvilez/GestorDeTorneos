@@ -17,7 +17,7 @@ namespace Dominio
     /// Si la cantidad de jugadores es impar se agrega un jugador BYE.
     /// Los colores se asignan siguiendo las tablas Berger oficiales.
     /// </summary>
-    internal class RoundRobinGenerator
+    public class RoundRobinGenerator
     {
         private const int IdBye = -1;
 
@@ -43,22 +43,23 @@ namespace Dominio
             for (int numeroRonda = 1; numeroRonda <= cantidadRondas; numeroRonda++)
             {
                 var ronda = new Ronda(numeroRonda);
-                int mesa = 1;
+                
 
                 for (int i = 0; i < n / 2; i++)
                 {
+                    int numeroMesa = i + 1;
+
                     var jugadorA = slots[i];
                     var jugadorB = slots[n - 1 - i];
 
                     var partida = CrearPartida(
                         numeroRonda,
-                        mesa,
+                        numeroMesa,
                         i,
                         jugadorA,
                         jugadorB);
 
                     ronda.AgregarPartida(partida);
-                    mesa++;
                 }
                 
                 rondas.Add(ronda);
