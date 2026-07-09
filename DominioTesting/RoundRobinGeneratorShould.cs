@@ -55,8 +55,8 @@ namespace DominioTesting
             };
             var generador = new RoundRobinGenerator();
             var rondas = generador.Generar(jugadores);
-            Assert.Equal(1, rondas.Count);
-            Assert.Equal(1, rondas[0].Partidas.Count); // ajustar según cómo se exponga la colección
+            Assert.Single(rondas);
+            Assert.Single(rondas[0].Partidas); // ajustar según cómo se exponga la colección
         }
 
         [Fact]
@@ -108,7 +108,7 @@ namespace DominioTesting
             Assert.Equal(6, pares.Count);
         }
 
-        [Fact]
+       /* [Fact]
         public void Generar_PrimeraPosicionPermaneceFija_YColoresAlternanEnPrimeraMesa()
         {
             var jugadores = new List<Jugador>
@@ -130,6 +130,65 @@ namespace DominioTesting
             Assert.NotNull(rondas[0].Partidas.First(p => p.NumeroMesa == 1));
             Assert.NotNull(rondas[1].Partidas.First(p => p.NumeroMesa == 1));
             Assert.NotEqual(primeraRondaAwhite, segundaRondaAwhite);
+        
+        }*/
+
+        [Fact]
+        public void Generar_ElJugadorFijoSiempreJuegaEnLaMesaUno()
+        {
+            // Arrange
+            var jugadores = new List<Jugador>
+            {
+                new Jugador { NombreCompleto = "A" },
+                new Jugador { NombreCompleto = "B" },
+                new Jugador { NombreCompleto = "C" },
+                new Jugador { NombreCompleto = "D" }
+             };
+
+            var generador = new RoundRobinGenerator();
+
+            // Act
+            var rondas = generador.Generar(jugadores);
+
+            // Assert
+            foreach (var ronda in rondas)
+            {
+                var primeraMesa = ronda.Partidas.First(p => p.NumeroMesa == 1);
+
+                Assert.True(
+                    primeraMesa.JugadorBlancas.NombreCompleto == "A" ||
+                    primeraMesa.JugadorNegras.NombreCompleto == "A");
+            }
+        }
+
+        [Fact]
+        public void Generar_ElJugadorFijoAlternaLosColoresEntreRondas()
+        {
+            var jugadores = new List<Jugador>
+            {
+                new Jugador { NombreCompleto = "A" },
+                new Jugador { NombreCompleto = "B" },
+                new Jugador { NombreCompleto = "C" },
+                new Jugador { NombreCompleto = "D" }
+            };
+
+            var generador = new RoundRobinGenerator();
+            var rondas = generador.Generar(jugadores);
+
+            for (int i = 1; i < rondas.Count; i++)
+            {
+                bool colorAnterior = rondas[i - 1]
+                    .Partidas
+                    .First(p => p.NumeroMesa == 1)
+                    .JugadorBlancas.NombreCompleto == "A";
+
+                bool colorActual = rondas[i]
+                    .Partidas
+                    .First(p => p.NumeroMesa == 1)
+                    .JugadorBlancas.NombreCompleto == "A";
+
+                Assert.NotEqual(colorAnterior, colorActual);
+            }
         }
 
     }
