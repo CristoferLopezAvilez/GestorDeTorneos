@@ -46,14 +46,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="AgregarJugadores.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AgregarJugadores.Designer.cs">
+      <DependentUpon>AgregarJugadores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrearTorneo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearTorneo.Designer.cs">
+      <DependentUpon>CrearTorneo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DatosDeUnJugador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatosDeUnJugador.Designer.cs">
+      <DependentUpon>DatosDeUnJugador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListaDeJugadores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaDeJugadores.Designer.cs">
+      <DependentUpon>ListaDeJugadores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TablaDePosicionGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TablaDePosicionGeneral.Designer.cs">
+      <DependentUpon>TablaDePosicionGeneral.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TodasLasRondas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TodasLasRondas.Designer.cs">
+      <DependentUpon>TodasLasRondas.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AgregarJugadores.resx">
+      <DependentUpon>AgregarJugadores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrearTorneo.resx">
+      <DependentUpon>CrearTorneo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatosDeUnJugador.resx">
+      <DependentUpon>DatosDeUnJugador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaDeJugadores.resx">
+      <DependentUpon>ListaDeJugadores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +114,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TablaDePosicionGeneral.resx">
+      <DependentUpon>TablaDePosicionGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TodasLasRondas.resx">
+      <DependentUpon>TodasLasRondas.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

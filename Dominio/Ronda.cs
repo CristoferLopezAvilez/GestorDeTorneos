@@ -13,13 +13,13 @@ namespace Dominio
 
         private readonly List<Partida> _partidas = new List<Partida>();
 
-        public List<Partida> Partidas 
+       /* public List<Partida> Partidas 
         {
             get
             {
                 return _partidas;
             }
-        }
+        }*/
 
         public Estado EstadoRonda
         {
@@ -66,6 +66,7 @@ namespace Dominio
         public IReadOnlyList<Partida> ObtenerPartidas()
         {
             return _partidas;
+            
         }
 
         public Partida BuscarPartidaPorMesa(int numeroMesa)

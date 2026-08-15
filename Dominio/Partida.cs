@@ -15,13 +15,13 @@ namespace Dominio
 
     public class Partida
     {
+        public int NumeroDeRonda { get; private set; }
+        public int NumeroMesa { get; private set; }
         public Jugador JugadorBlancas { get; set; }
         public Jugador JugadorNegras { get; set; }
 
         private Resultado? _resultado;
-
-        public int NumeroMesa { get; private set; }
-        public int NumeroDeRonda { get; private set; }
+              
 
         public Partida(int numeroDeRonda, int numeroMesa)
         {

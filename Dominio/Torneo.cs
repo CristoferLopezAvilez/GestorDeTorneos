@@ -48,6 +48,8 @@ namespace Dominio
         public int CantidadRondas { get; private set; }
         public string Lugar { get; set; }
 
+        public string FederacionClub { get; set; }
+
         public Torneo()
         {
             Id = Guid.NewGuid();
@@ -62,7 +64,7 @@ namespace Dominio
                 throw new InvalidOperationException(
                     "No se pueden agregar jugadores una vez iniciado el torneo.");
 
-            if (_jugadores.Any(j => j.Id == jugador.Id))
+            if (_jugadores.Any(j => j.NombreCompleto == jugador.NombreCompleto))
                 throw new InvalidOperationException(
                     "El jugador ya está registrado.");
 
@@ -93,7 +95,7 @@ namespace Dominio
 
         }
 
-        public void GenerarTodasLasRondas()
+        private void GenerarTodasLasRondas()
         {
             var generador = new RoundRobinGenerator();
             var rondasGeneradas = generador.Generar(Jugadores);
@@ -168,7 +170,7 @@ namespace Dominio
         {
             foreach (var ronda in _rondas)
             {
-                foreach (var partida in ronda.Partidas)
+                foreach (var partida in ronda.ObtenerPartidas())
                 {
                     if (partida.JugadorBlancas.Id == -1)
                     {
