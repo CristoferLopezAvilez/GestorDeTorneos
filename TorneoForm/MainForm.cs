@@ -50,9 +50,9 @@ namespace TorneoForm
 
             columnaResultado.Name = "Resultado";
             columnaResultado.HeaderText = "Resultado";
-            columnaResultado.Items.Add("VictoriaBlanca");
-            columnaResultado.Items.Add("VictoriaNegra");
-            columnaResultado.Items.Add("Empate");
+            columnaResultado.Items.Add("1 - 0");
+            columnaResultado.Items.Add("0 - 1");
+            columnaResultado.Items.Add("½ - ½");
 
             dgvMain.Columns.Add(columnaResultado);
         }
@@ -87,6 +87,7 @@ namespace TorneoForm
         {
             dgvMain.Rows.Clear();
 
+           
             foreach (Partida partida in ronda.ObtenerPartidas())
             {
                 int fila = dgvMain.Rows.Add();
@@ -102,6 +103,7 @@ namespace TorneoForm
 
                 dgvMain.Rows[fila].Tag = partida;
             }
+                       
         }
         private void btnIniciarTorneoMain_Click(object sender, EventArgs e)
         {
@@ -124,7 +126,8 @@ namespace TorneoForm
             }
         }
 
-         private void dgvMain_CellValueChanged(
+        // Actualiza el resultado de la partida cuando cambia la celda Resultado.
+        private void dgvMain_CellValueChanged(
         object sender,
         DataGridViewCellEventArgs e)
             {
@@ -141,12 +144,13 @@ namespace TorneoForm
                 dgvMain.Rows[e.RowIndex]
                     .Cells["Resultado"].Value.ToString();
 
-            Resultado resultado =
-                (Resultado)Enum.Parse(typeof(Resultado), valor);
+            Resultado resultado = ConvertirResultado(valor);
 
             partida.RegistrarResultado(resultado);
 
         }
+
+        // Confirma inmediatamente el cambio del ComboBox.
         private void dgvMain_CurrentCellDirtyStateChanged(
          object sender,
          EventArgs e)
@@ -158,6 +162,25 @@ namespace TorneoForm
                 }
             }
 
+            private Resultado ConvertirResultado(string valor)
+            {
+                switch (valor)
+                {
+                    case "1 - 0":
+                        return Resultado.VictoriaBlanca;
+
+                    case "0 - 1":
+                        return Resultado.VictoriaNegra;
+
+                    case "½ - ½":
+                        return Resultado.Empate;
+
+                    default:
+                        throw new ArgumentException(
+                            "El resultado no es válido.",
+                            nameof(valor));
+                }
+            }
         private void nuevoTorneoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             CrearTorneo crearTorneoForm = new CrearTorneo();
