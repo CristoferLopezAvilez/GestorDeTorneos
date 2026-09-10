@@ -14,6 +14,7 @@ namespace TorneoForm
     public partial class MainForm : Form
     {
         private Torneo torneo = new Torneo();
+        private int numeroRondaMostrada = 0;
         public MainForm()
         {
             InitializeComponent();
@@ -59,6 +60,9 @@ namespace TorneoForm
 
         private void btnCargarResultados_Click(object sender, EventArgs e)
         {
+            // Este evento puede servir para el suizo
+            // pero para el round robin no es necesario,
+            // ya que los resultados se cargan directamente en la grilla.
             CargaDeResultados();
         }
 
@@ -76,12 +80,46 @@ namespace TorneoForm
 
         private void btnRondaSiguienteMain_Click(object sender, EventArgs e)
         {
+            if (torneo.Estado != EstadoTorneo.TorneoEnCurso)
+            {
+                MessageBox.Show("El torneo no ha sido iniciado o ya ha finalizado.");
+                return;
+            }
 
+            if (numeroRondaMostrada >= torneo.CantidadRondas)
+            {
+                MessageBox.Show("Ya estás en la última ronda.");
+                return;
+            }
+
+            numeroRondaMostrada++;
+
+            var rondaSiguiente = torneo.Rondas
+                .FirstOrDefault(r => r.NumeroDeRonda == numeroRondaMostrada);
+
+            if (rondaSiguiente != null)
+            {
+                MostrarRonda(rondaSiguiente);
+            }
         }
 
         private void btnRondaAnteriorMain_Click(object sender, EventArgs e)
         {
+            if (numeroRondaMostrada <= 1)
+            {
+                MessageBox.Show("Ya estás en la primera ronda.");
+                return;
+            }
 
+            numeroRondaMostrada--;
+
+            var rondaAnterior = torneo.Rondas
+                .FirstOrDefault(r => r.NumeroDeRonda == numeroRondaMostrada);
+
+            if (rondaAnterior != null)
+            {
+                MostrarRonda(rondaAnterior);
+            }
         }
         private void MostrarRonda(Ronda ronda)
         {
@@ -103,7 +141,9 @@ namespace TorneoForm
 
                 dgvMain.Rows[fila].Tag = partida;
             }
-                       
+
+            lblNumeroRondaMain.Text = $"Ronda N°: {ronda.NumeroDeRonda}";
+
         }
         private void btnIniciarTorneoMain_Click(object sender, EventArgs e)
         {
@@ -112,7 +152,9 @@ namespace TorneoForm
                 torneo.IniciarTorneo();
 
                 var ronda = torneo.Rondas
-                    .FirstOrDefault(r => r.NumeroDeRonda == 1);
+                   .FirstOrDefault(r => r.NumeroDeRonda == 1);
+
+                numeroRondaMostrada = 1;
 
                 MostrarRonda(ronda);
             }
@@ -162,7 +204,7 @@ namespace TorneoForm
                 }
             }
 
-            private Resultado ConvertirResultado(string valor)
+        private Resultado ConvertirResultado(string valor)
             {
                 switch (valor)
                 {
@@ -183,10 +225,7 @@ namespace TorneoForm
             }
         private void nuevoTorneoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            CrearTorneo crearTorneoForm = new CrearTorneo();
-            crearTorneoForm.ShowDialog();
-
-
+            VentanaCrearTorneo();
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -205,17 +244,17 @@ namespace TorneoForm
 
         private void datosDelTorneoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+            VentanaCrearTorneo();
         }
 
         private void configuraciónDelTorneoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            VentanaCrearTorneo();
         }
 
         private void iniciarTorneoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            btnIniciarTorneoMain_Click(sender, e);
         }
 
         private void agregarJugadoresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -266,6 +305,16 @@ namespace TorneoForm
 
         }
 
+        private void VentanaCrearTorneo()
+        {
+            if (torneo.Estado == EstadoTorneo.TorneoEnCurso || torneo.Estado == EstadoTorneo.TorneoFinalizado)
+            {
+                MessageBox.Show("No se puede crear un nuevo torneo mientras hay uno en curso o finalizado.");
+                return;
+            }
+            CrearTorneo crearTorneoForm = new CrearTorneo(torneo);
+            crearTorneoForm.ShowDialog();
+        }
        
     }
 }

@@ -232,7 +232,7 @@
             // 
             this.btnCargarResultados.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnCargarResultados.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCargarResultados.Location = new System.Drawing.Point(652, 65);
+            this.btnCargarResultados.Location = new System.Drawing.Point(652, 189);
             this.btnCargarResultados.Name = "btnCargarResultados";
             this.btnCargarResultados.Size = new System.Drawing.Size(190, 55);
             this.btnCargarResultados.TabIndex = 3;
@@ -244,7 +244,7 @@
             // 
             this.btnMostrarTodasLasRondas.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnMostrarTodasLasRondas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnMostrarTodasLasRondas.Location = new System.Drawing.Point(652, 189);
+            this.btnMostrarTodasLasRondas.Location = new System.Drawing.Point(652, 65);
             this.btnMostrarTodasLasRondas.Name = "btnMostrarTodasLasRondas";
             this.btnMostrarTodasLasRondas.Size = new System.Drawing.Size(190, 55);
             this.btnMostrarTodasLasRondas.TabIndex = 4;

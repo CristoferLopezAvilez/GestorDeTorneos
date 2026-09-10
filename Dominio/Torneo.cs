@@ -19,6 +19,8 @@ namespace Dominio
 
         public RitmoTorneo Ritmo { get; set; }
 
+        public string EspecificacionesDelRitmo { get; set; }
+
         private readonly List<Jugador> _jugadores = new List<Jugador>();
 
         public IReadOnlyList<Jugador> Jugadores => _jugadores;
@@ -26,7 +28,7 @@ namespace Dominio
         private readonly List<Ronda> _rondas = new List<Ronda>();
         public IReadOnlyList<Ronda> Rondas => _rondas;
 
-
+        public SistemaTorneo Sistema { get; set; }
 
         public EstadoTorneo Estado
         {
@@ -161,9 +163,10 @@ namespace Dominio
                 return 0;
 
             var rondaActiva = _rondas
-                .FirstOrDefault(r => r.EstadoRonda != Ronda.Estado.RondaFinalizada);
+                .FirstOrDefault(r => r.EstadoRonda == Ronda.Estado.RondaEnCurso);
 
-            return rondaActiva?.NumeroDeRonda ?? CantidadRondas;
+
+            return rondaActiva?.NumeroDeRonda ?? 0;
         }
 
         private void RegistrarVictoriasAutomaticasBye()
@@ -198,6 +201,12 @@ namespace Dominio
         Blitz,
         Rapid,
         Clasico
+    }
+
+    public enum SistemaTorneo
+    {
+        RoundRobin,
+        Suizo
     }
 
 
