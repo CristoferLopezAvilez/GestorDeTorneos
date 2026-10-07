@@ -31,7 +31,7 @@
             this.dgvListaDeJugadores = new System.Windows.Forms.DataGridView();
             this.btnEditarListaDeJugadores = new System.Windows.Forms.Button();
             this.btnGuardarListaDeJugadores = new System.Windows.Forms.Button();
-            this.VerCaracteristicaListaDeJugadores = new System.Windows.Forms.Button();
+            this.VerDatosDeUnJugador = new System.Windows.Forms.Button();
             this.btnCancelarListaDeJugadores = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaDeJugadores)).BeginInit();
             this.SuspendLayout();
@@ -66,16 +66,16 @@
             this.btnGuardarListaDeJugadores.UseVisualStyleBackColor = true;
             this.btnGuardarListaDeJugadores.Click += new System.EventHandler(this.btnGuardarListaDeJugadores_Click);
             // 
-            // VerCaracteristicaListaDeJugadores
+            // VerDatosDeUnJugador
             // 
-            this.VerCaracteristicaListaDeJugadores.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.VerCaracteristicaListaDeJugadores.Location = new System.Drawing.Point(582, 282);
-            this.VerCaracteristicaListaDeJugadores.Name = "VerCaracteristicaListaDeJugadores";
-            this.VerCaracteristicaListaDeJugadores.Size = new System.Drawing.Size(190, 55);
-            this.VerCaracteristicaListaDeJugadores.TabIndex = 3;
-            this.VerCaracteristicaListaDeJugadores.Text = "Ver Características";
-            this.VerCaracteristicaListaDeJugadores.UseVisualStyleBackColor = true;
-            this.VerCaracteristicaListaDeJugadores.Click += new System.EventHandler(this.VerCaracteristicaListaDeJugadores_Click);
+            this.VerDatosDeUnJugador.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.VerDatosDeUnJugador.Location = new System.Drawing.Point(582, 282);
+            this.VerDatosDeUnJugador.Name = "VerDatosDeUnJugador";
+            this.VerDatosDeUnJugador.Size = new System.Drawing.Size(190, 55);
+            this.VerDatosDeUnJugador.TabIndex = 3;
+            this.VerDatosDeUnJugador.Text = "Ver Datos del Jugador";
+            this.VerDatosDeUnJugador.UseVisualStyleBackColor = true;
+            this.VerDatosDeUnJugador.Click += new System.EventHandler(this.VerDatosDeUnJugador_Click);
             // 
             // btnCancelarListaDeJugadores
             // 
@@ -94,12 +94,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 363);
             this.Controls.Add(this.btnCancelarListaDeJugadores);
-            this.Controls.Add(this.VerCaracteristicaListaDeJugadores);
+            this.Controls.Add(this.VerDatosDeUnJugador);
             this.Controls.Add(this.btnGuardarListaDeJugadores);
             this.Controls.Add(this.btnEditarListaDeJugadores);
             this.Controls.Add(this.dgvListaDeJugadores);
             this.Name = "ListaDeJugadores";
             this.Text = "Lista de Jugadores";
+            this.Load += new System.EventHandler(this.ListaDeJugadores_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaDeJugadores)).EndInit();
             this.ResumeLayout(false);
 
@@ -110,7 +111,7 @@
         private System.Windows.Forms.DataGridView dgvListaDeJugadores;
         private System.Windows.Forms.Button btnEditarListaDeJugadores;
         private System.Windows.Forms.Button btnGuardarListaDeJugadores;
-        private System.Windows.Forms.Button VerCaracteristicaListaDeJugadores;
+        private System.Windows.Forms.Button VerDatosDeUnJugador;
         private System.Windows.Forms.Button btnCancelarListaDeJugadores;
     }
 }

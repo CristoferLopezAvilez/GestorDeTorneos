@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public enum Resultado
+    public enum ResultadoEnum
     {
         VictoriaBlanca,
         VictoriaNegra,
@@ -20,8 +20,9 @@ namespace Dominio
         public Jugador JugadorBlancas { get; set; }
         public Jugador JugadorNegras { get; set; }
 
-        private Resultado? _resultado;
-              
+        private ResultadoEnum? _resultado;
+        public ResultadoEnum? Resultado => _resultado;
+
 
         public Partida(int numeroDeRonda, int numeroMesa)
         {
@@ -29,7 +30,7 @@ namespace Dominio
             NumeroMesa = numeroMesa;
         }
 
-        public void RegistrarResultado(Resultado resultado)
+        public void RegistrarResultado(ResultadoEnum resultado)
         {
            _resultado = resultado;
         }
@@ -41,17 +42,17 @@ namespace Dominio
 
         public bool GanoBlancas()
         {
-            return _resultado == Resultado.VictoriaBlanca;
+            return _resultado == ResultadoEnum.VictoriaBlanca;
         }
 
         public bool GanoNegras()
         {
-            return _resultado == Resultado.VictoriaNegra;
+            return _resultado == ResultadoEnum.VictoriaNegra;
         }
 
         public bool EsEmpate()
         {
-            return _resultado == Resultado.Empate;
+            return _resultado == ResultadoEnum.Empate;
         }
 
        

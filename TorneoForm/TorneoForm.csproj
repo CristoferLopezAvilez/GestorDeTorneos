@@ -52,6 +52,12 @@
     <Compile Include="AgregarJugadores.Designer.cs">
       <DependentUpon>AgregarJugadores.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuscarJugador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscarJugador.Designer.cs">
+      <DependentUpon>BuscarJugador.cs</DependentUpon>
+    </Compile>
     <Compile Include="CrearTorneo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     </Compile>
     <EmbeddedResource Include="AgregarJugadores.resx">
       <DependentUpon>AgregarJugadores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuscarJugador.resx">
+      <DependentUpon>BuscarJugador.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrearTorneo.resx">
       <DependentUpon>CrearTorneo.cs</DependentUpon>

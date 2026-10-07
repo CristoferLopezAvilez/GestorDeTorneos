@@ -58,23 +58,18 @@ namespace TorneoForm
             dgvMain.Columns.Add(columnaResultado);
         }
 
-        private void btnCargarResultados_Click(object sender, EventArgs e)
-        {
-            // Este evento puede servir para el suizo
-            // pero para el round robin no es necesario,
-            // ya que los resultados se cargan directamente en la grilla.
-            CargaDeResultados();
-        }
+
 
         private void btnMostrarTodasLasRondas_Click(object sender, EventArgs e)
         {
             AbrirMostrarTodasLasRondas();
 
+
         }
 
         private void btnTablaDePosicion_Click(object sender, EventArgs e)
         {
-            TablaDePosicionGeneral tablaDePosicionGeneralForm = new TablaDePosicionGeneral();
+            TablaDePosicionGeneral tablaDePosicionGeneralForm = new TablaDePosicionGeneral(torneo);
             tablaDePosicionGeneralForm.ShowDialog();
         }
 
@@ -125,7 +120,7 @@ namespace TorneoForm
         {
             dgvMain.Rows.Clear();
 
-           
+
             foreach (Partida partida in ronda.ObtenerPartidas())
             {
                 int fila = dgvMain.Rows.Add();
@@ -140,9 +135,31 @@ namespace TorneoForm
                     partida.JugadorNegras.NombreCompleto;
 
                 dgvMain.Rows[fila].Tag = partida;
+
+                if (partida.JugadorBlancas.NombreCompleto == "BYE")
+                {
+                    partida.RegistrarResultado(ResultadoEnum.VictoriaNegra);
+
+                    dgvMain.Rows[fila].Cells["Resultado"].Value = "0 - 1";
+                    dgvMain.Rows[fila].Cells["Resultado"].ReadOnly = true;
+                }
+                else if (partida.JugadorNegras.NombreCompleto == "BYE")
+                {
+                    partida.RegistrarResultado(ResultadoEnum.VictoriaBlanca);
+
+                    dgvMain.Rows[fila].Cells["Resultado"].Value = "1 - 0";
+                    dgvMain.Rows[fila].Cells["Resultado"].ReadOnly = true;
+                }
+
+                if (partida.TieneResultado())
+                {
+                    dgvMain.Rows[fila].Cells["Resultado"].Value =
+                        ConvertirResultadoTexto(partida.Resultado.Value);
+                }
+
+                lblNumeroRondaMain.Text = $"Ronda N°: {ronda.NumeroDeRonda}";
             }
 
-            lblNumeroRondaMain.Text = $"Ronda N°: {ronda.NumeroDeRonda}";
 
         }
         private void btnIniciarTorneoMain_Click(object sender, EventArgs e)
@@ -172,7 +189,7 @@ namespace TorneoForm
         private void dgvMain_CellValueChanged(
         object sender,
         DataGridViewCellEventArgs e)
-            {
+        {
             if (e.RowIndex < 0)
                 return;
 
@@ -182,11 +199,17 @@ namespace TorneoForm
             Partida partida =
                 (Partida)dgvMain.Rows[e.RowIndex].Tag;
 
+            if (partida.JugadorBlancas.NombreCompleto == "BYE" ||
+                  partida.JugadorNegras.NombreCompleto == "BYE")
+            {
+                return;
+            }
+
             string valor =
                 dgvMain.Rows[e.RowIndex]
                     .Cells["Resultado"].Value.ToString();
 
-            Resultado resultado = ConvertirResultado(valor);
+            ResultadoEnum resultado = ConvertirResultado(valor);
 
             partida.RegistrarResultado(resultado);
 
@@ -196,33 +219,51 @@ namespace TorneoForm
         private void dgvMain_CurrentCellDirtyStateChanged(
          object sender,
          EventArgs e)
+        {
+            if (dgvMain.IsCurrentCellDirty)
             {
-                 if (dgvMain.IsCurrentCellDirty)
-                {
-                    dgvMain.CommitEdit(
-                        DataGridViewDataErrorContexts.Commit);
-                }
+                dgvMain.CommitEdit(
+                    DataGridViewDataErrorContexts.Commit);
             }
+        }
 
-        private Resultado ConvertirResultado(string valor)
+        private ResultadoEnum ConvertirResultado(string valor)
+        {
+           
+            switch (valor)
             {
-                switch (valor)
-                {
-                    case "1 - 0":
-                        return Resultado.VictoriaBlanca;
+                case "1 - 0":
+                    return ResultadoEnum.VictoriaBlanca;
 
-                    case "0 - 1":
-                        return Resultado.VictoriaNegra;
+                case "0 - 1":
+                    return ResultadoEnum.VictoriaNegra;
 
-                    case "½ - ½":
-                        return Resultado.Empate;
+                case "½ - ½":
+                    return ResultadoEnum.Empate;
 
-                    default:
-                        throw new ArgumentException(
-                            "El resultado no es válido.",
-                            nameof(valor));
-                }
+                default:
+                    throw new ArgumentException(
+                        "El resultado no es válido.",
+                        nameof(valor));
             }
+        }
+        private string ConvertirResultadoTexto(ResultadoEnum resultado)
+        {
+            switch (resultado)
+            {
+                case ResultadoEnum.VictoriaBlanca:
+                    return "1 - 0";
+
+                case ResultadoEnum.VictoriaNegra:
+                    return "0 - 1";
+
+                case ResultadoEnum.Empate:
+                    return "½ - ½";
+
+                default:
+                    return "";
+            }
+        }
         private void nuevoTorneoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             VentanaCrearTorneo();
@@ -236,10 +277,10 @@ namespace TorneoForm
             MessageBoxButtons.OKCancel,
             MessageBoxIcon.Warning);
 
-               if (resultado == DialogResult.OK)
-                {
-                    this.Close();
-                }
+            if (resultado == DialogResult.OK)
+            {
+                this.Close();
+            }
         }
 
         private void datosDelTorneoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -265,13 +306,14 @@ namespace TorneoForm
 
         private void listaDeJugadoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListaDeJugadores listaDeJugadoresForm = new ListaDeJugadores();
+            ListaDeJugadores listaDeJugadoresForm = new ListaDeJugadores(torneo);
             listaDeJugadoresForm.ShowDialog();
         }
 
         private void buscarJugadorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            BuscarJugador buscarJugadorForm = new BuscarJugador(torneo);
+            buscarJugadorForm.ShowDialog();
         }
 
         private void mostrarTodasLasRondasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -284,10 +326,7 @@ namespace TorneoForm
 
         }
 
-        private void cargarResultadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CargaDeResultados();
-        }
+
 
         private void editarResultadosToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -296,14 +335,18 @@ namespace TorneoForm
 
         private void AbrirMostrarTodasLasRondas()
         {
-            TodasLasRondas todasLasRondasForm = new TodasLasRondas();
+            TodasLasRondas todasLasRondasForm = new TodasLasRondas(torneo);
             todasLasRondasForm.ShowDialog();
+
+            // Buscar nuevamente la ronda que estaba mostrando el MainForm
+            var rondaActual = torneo.Rondas
+                .FirstOrDefault(r => r.NumeroDeRonda == numeroRondaMostrada);
+            if (rondaActual != null)
+            {
+                MostrarRonda(rondaActual);
+            }
         }
 
-        private void CargaDeResultados()
-        {
-
-        }
 
         private void VentanaCrearTorneo()
         {
@@ -315,6 +358,7 @@ namespace TorneoForm
             CrearTorneo crearTorneoForm = new CrearTorneo(torneo);
             crearTorneoForm.ShowDialog();
         }
-       
+
+     
     }
 }

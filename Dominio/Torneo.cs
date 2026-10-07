@@ -11,7 +11,7 @@ namespace Dominio
     {
 
       
-        public Guid Id { get; }
+        public Guid IdTorneo { get; }
 
         public string NombreTorneo { get; set; }
         public DateTime FechaInicio { get; set; }
@@ -54,7 +54,7 @@ namespace Dominio
 
         public Torneo()
         {
-            Id = Guid.NewGuid();
+            IdTorneo = Guid.NewGuid();
         }
 
         public void AgregarJugador(Jugador jugador)
@@ -73,17 +73,22 @@ namespace Dominio
             _jugadores.Add(jugador);
         }
 
-        // Guardo este método para el futuro, cuando se implemente el sistema suizo,
-        // para permitir registrar rondas manualmente en caso de ser necesario.
-        /*public void RegistrarRonda(Ronda ronda)
+        public void ActualizarJugadores(List<Jugador> jugadores)
         {
-            if (ronda == null)
-                throw new ArgumentNullException(nameof(ronda));
+            if (jugadores == null)
+                throw new ArgumentNullException(nameof(jugadores));
 
-            _rondas.Add(ronda);
-        }*/
+            if (Estado == EstadoTorneo.TorneoFinalizado)
+                throw new InvalidOperationException(
+                    "No se pueden modificar los jugadores una vez finalizado el torneo.");
 
+            _jugadores.Clear();
 
+            foreach (var jugador in jugadores)
+            {
+                _jugadores.Add(jugador);
+            }
+        }
         public void IniciarTorneo()
         {
             if (Jugadores.Count < 2)
@@ -107,7 +112,7 @@ namespace Dominio
             CantidadRondas = rondasGeneradas.Count;
         }
 
-        public void RegistrarResultado(int numeroRonda, int numeroMesa, Resultado resultado)
+        public void RegistrarResultado(int numeroRonda, int numeroMesa, ResultadoEnum resultado)
         {
             var ronda = _rondas.FirstOrDefault(r => r.NumeroDeRonda == numeroRonda);
 
@@ -124,7 +129,7 @@ namespace Dominio
             RegistrarVictoriasAutomaticasBye();
         }
 
-        public TablaDePosicion ObtenerTablaFinal()
+        public IReadOnlyList<ItemTablaPosicion> ObtenerTablaFinal()
         {
             if (Estado != EstadoTorneo.TorneoFinalizado)
                 throw new InvalidOperationException("El torneo aún no ha finalizado.");
@@ -133,12 +138,12 @@ namespace Dominio
 
         }
 
-        public TablaDePosicion ObtenerTablaPosicion()
+       
+        public IReadOnlyList<ItemTablaPosicion> ObtenerTablaPosicion()
         {
             var tabla = new TablaDePosicion();
             tabla.RecalcularTabla(_rondas);
-
-            return tabla;
+            return tabla.Items;
         }
 
         public IReadOnlyList<Jugador> ObtenerJugadoresOrdenados()
@@ -177,15 +182,17 @@ namespace Dominio
                 {
                     if (partida.JugadorBlancas.Id == -1)
                     {
-                        partida.RegistrarResultado(Resultado.VictoriaNegra);
+                        partida.RegistrarResultado(ResultadoEnum.VictoriaNegra);
                     }
                     else if (partida.JugadorNegras.Id == -1)
                     {
-                        partida.RegistrarResultado(Resultado.VictoriaBlanca);
+                        partida.RegistrarResultado(ResultadoEnum.VictoriaBlanca);
                     }
                 }
             }
         }
+
+      
     }
 
     public enum EstadoTorneo

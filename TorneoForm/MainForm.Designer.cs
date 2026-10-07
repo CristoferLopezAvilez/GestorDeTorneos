@@ -48,7 +48,6 @@
             this.editarResultadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.btnTablaDePosicion = new System.Windows.Forms.Button();
-            this.btnCargarResultados = new System.Windows.Forms.Button();
             this.btnMostrarTodasLasRondas = new System.Windows.Forms.Button();
             this.btnRondaAnteriorMain = new System.Windows.Forms.Button();
             this.btnRondaSiguienteMain = new System.Windows.Forms.Button();
@@ -194,7 +193,6 @@
             this.cargarResultadoToolStripMenuItem.Name = "cargarResultadoToolStripMenuItem";
             this.cargarResultadoToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.cargarResultadoToolStripMenuItem.Text = "Cargar Resultados";
-            this.cargarResultadoToolStripMenuItem.Click += new System.EventHandler(this.cargarResultadoToolStripMenuItem_Click);
             // 
             // editarResultadosToolStripMenuItem
             // 
@@ -227,18 +225,6 @@
             this.btnTablaDePosicion.Text = "Tabla de Posición";
             this.btnTablaDePosicion.UseVisualStyleBackColor = true;
             this.btnTablaDePosicion.Click += new System.EventHandler(this.btnTablaDePosicion_Click);
-            // 
-            // btnCargarResultados
-            // 
-            this.btnCargarResultados.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnCargarResultados.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnCargarResultados.Location = new System.Drawing.Point(652, 189);
-            this.btnCargarResultados.Name = "btnCargarResultados";
-            this.btnCargarResultados.Size = new System.Drawing.Size(190, 55);
-            this.btnCargarResultados.TabIndex = 3;
-            this.btnCargarResultados.Text = "Cargar Resultados";
-            this.btnCargarResultados.UseVisualStyleBackColor = true;
-            this.btnCargarResultados.Click += new System.EventHandler(this.btnCargarResultados_Click);
             // 
             // btnMostrarTodasLasRondas
             // 
@@ -308,7 +294,6 @@
             this.Controls.Add(this.btnRondaSiguienteMain);
             this.Controls.Add(this.btnRondaAnteriorMain);
             this.Controls.Add(this.btnMostrarTodasLasRondas);
-            this.Controls.Add(this.btnCargarResultados);
             this.Controls.Add(this.btnTablaDePosicion);
             this.Controls.Add(this.dgvMain);
             this.Controls.Add(this.menuStrip1);
@@ -345,7 +330,6 @@
         private System.Windows.Forms.ToolStripMenuItem editarResultadosToolStripMenuItem;
         private System.Windows.Forms.DataGridView dgvMain;
         private System.Windows.Forms.Button btnTablaDePosicion;
-        private System.Windows.Forms.Button btnCargarResultados;
         private System.Windows.Forms.Button btnMostrarTodasLasRondas;
         private System.Windows.Forms.Button btnRondaAnteriorMain;
         private System.Windows.Forms.Button btnRondaSiguienteMain;

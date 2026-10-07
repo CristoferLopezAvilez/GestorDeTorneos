@@ -39,7 +39,7 @@
             this.dgvTodasLasRondas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTodasLasRondas.Location = new System.Drawing.Point(12, 12);
             this.dgvTodasLasRondas.Name = "dgvTodasLasRondas";
-            this.dgvTodasLasRondas.Size = new System.Drawing.Size(408, 288);
+            this.dgvTodasLasRondas.Size = new System.Drawing.Size(545, 288);
             this.dgvTodasLasRondas.TabIndex = 0;
             // 
             // btnEditarTodasLasRondas
@@ -56,7 +56,7 @@
             // btnGuardarTodasLasRondas
             // 
             this.btnGuardarTodasLasRondas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnGuardarTodasLasRondas.Location = new System.Drawing.Point(230, 306);
+            this.btnGuardarTodasLasRondas.Location = new System.Drawing.Point(367, 306);
             this.btnGuardarTodasLasRondas.Name = "btnGuardarTodasLasRondas";
             this.btnGuardarTodasLasRondas.Size = new System.Drawing.Size(190, 55);
             this.btnGuardarTodasLasRondas.TabIndex = 2;
@@ -68,14 +68,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 382);
+            this.ClientSize = new System.Drawing.Size(569, 391);
             this.Controls.Add(this.btnGuardarTodasLasRondas);
             this.Controls.Add(this.btnEditarTodasLasRondas);
             this.Controls.Add(this.dgvTodasLasRondas);
-            this.MaximumSize = new System.Drawing.Size(472, 421);
-            this.MinimumSize = new System.Drawing.Size(472, 421);
+            this.MaximumSize = new System.Drawing.Size(585, 430);
+            this.MinimumSize = new System.Drawing.Size(585, 430);
             this.Name = "TodasLasRondas";
             this.Text = "Todas Las Rondas";
+            this.Load += new System.EventHandler(this.TodasLasRondas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTodasLasRondas)).EndInit();
             this.ResumeLayout(false);
 

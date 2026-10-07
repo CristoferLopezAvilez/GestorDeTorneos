@@ -122,17 +122,20 @@
             // 
             // dgvTablaDePosiciones
             // 
+            this.dgvTablaDePosiciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTablaDePosiciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTablaDePosiciones.Location = new System.Drawing.Point(15, 147);
             this.dgvTablaDePosiciones.Name = "dgvTablaDePosiciones";
-            this.dgvTablaDePosiciones.Size = new System.Drawing.Size(545, 439);
+            this.dgvTablaDePosiciones.Size = new System.Drawing.Size(569, 439);
             this.dgvTablaDePosiciones.TabIndex = 8;
             // 
             // TablaDePosicionGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 598);
+            this.ClientSize = new System.Drawing.Size(596, 598);
             this.Controls.Add(this.dgvTablaDePosiciones);
             this.Controls.Add(this.lblFechaFinalizacionTablaDePosicionGeneral);
             this.Controls.Add(this.lblFechaInicioTablaDePosicionGeneral);
@@ -144,6 +147,7 @@
             this.Controls.Add(this.lblRondasCompletadas);
             this.Name = "TablaDePosicionGeneral";
             this.Text = "Tabla De Posiciones";
+            this.Load += new System.EventHandler(this.TablaDePosicionGeneral_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTablaDePosiciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

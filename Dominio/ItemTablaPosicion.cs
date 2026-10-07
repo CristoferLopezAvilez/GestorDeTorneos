@@ -12,6 +12,14 @@ namespace Dominio
         // BUCHOLTZ PROGRESIVO, RESULTADO INDIVIDUAL, ETC.
         // PODRÍA SER EN CLASES SEPARADAS
         public Jugador Jugador { get; set; }
+
+        public int Id => Jugador?.Id ?? 0;
+
+        public int Puesto { get; set; } = 0;
+        public string NombreCompleto => Jugador?.NombreCompleto;
+        public string Categoria => Jugador?.Categoria;
+        public string Club => Jugador?.Club;
+
         public int PartidasJugadas { get; set; }
         public int Victorias { get; set; }
         public int Empates { get; set; }

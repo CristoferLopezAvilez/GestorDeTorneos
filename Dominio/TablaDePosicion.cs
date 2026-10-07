@@ -13,6 +13,8 @@ namespace Dominio
 
         public IReadOnlyList<ItemTablaPosicion> Items => _items;
 
+       
+
         public void RecalcularTabla(List<Ronda> rondas)
         {
             if (rondas == null)
@@ -77,6 +79,11 @@ namespace Dominio
                 .ThenBy(i => i.Derrotas)
                 .ThenBy(i => i.Jugador.NombreCompleto)
                 .ToList();
+
+            for (int i = 0; i < _items.Count; i++)
+            {
+                _items[i].Puesto = i + 1;
+            }
         }
 
         private int ObtenerUltimaRondaConResultados(List<Ronda> rondas)
