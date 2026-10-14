@@ -53,8 +53,11 @@
             this.btnRondaSiguienteMain = new System.Windows.Forms.Button();
             this.lblNumeroRondaMain = new System.Windows.Forms.Label();
             this.btnIniciarTorneoMain = new System.Windows.Forms.Button();
+            this.pnlEncabezado = new System.Windows.Forms.Panel();
+            this.lblTituloTorneo = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
+            this.pnlEncabezado.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -207,9 +210,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMain.Location = new System.Drawing.Point(12, 65);
+            this.dgvMain.Location = new System.Drawing.Point(12, 132);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(620, 303);
+            this.dgvMain.Size = new System.Drawing.Size(620, 236);
             this.dgvMain.TabIndex = 2;
             this.dgvMain.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMain_CellValueChanged);
             this.dgvMain.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvMain_CurrentCellDirtyStateChanged);
@@ -230,7 +233,7 @@
             // 
             this.btnMostrarTodasLasRondas.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnMostrarTodasLasRondas.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnMostrarTodasLasRondas.Location = new System.Drawing.Point(652, 65);
+            this.btnMostrarTodasLasRondas.Location = new System.Drawing.Point(652, 120);
             this.btnMostrarTodasLasRondas.Name = "btnMostrarTodasLasRondas";
             this.btnMostrarTodasLasRondas.Size = new System.Drawing.Size(190, 55);
             this.btnMostrarTodasLasRondas.TabIndex = 4;
@@ -284,11 +287,32 @@
             this.btnIniciarTorneoMain.UseVisualStyleBackColor = true;
             this.btnIniciarTorneoMain.Click += new System.EventHandler(this.btnIniciarTorneoMain_Click);
             // 
+            // pnlEncabezado
+            // 
+            this.pnlEncabezado.Controls.Add(this.lblTituloTorneo);
+            this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlEncabezado.Location = new System.Drawing.Point(0, 24);
+            this.pnlEncabezado.Name = "pnlEncabezado";
+            this.pnlEncabezado.Size = new System.Drawing.Size(869, 90);
+            this.pnlEncabezado.TabIndex = 9;
+            // 
+            // lblTituloTorneo
+            // 
+            this.lblTituloTorneo.AutoSize = true;
+            this.lblTituloTorneo.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloTorneo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(58)))), ((int)(((byte)(52)))));
+            this.lblTituloTorneo.Location = new System.Drawing.Point(20, 20);
+            this.lblTituloTorneo.Name = "lblTituloTorneo";
+            this.lblTituloTorneo.Size = new System.Drawing.Size(300, 30);
+            this.lblTituloTorneo.TabIndex = 0;
+            this.lblTituloTorneo.Text = "Gestor de Torneos de Ajedrez";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 445);
+            this.Controls.Add(this.pnlEncabezado);
             this.Controls.Add(this.btnIniciarTorneoMain);
             this.Controls.Add(this.lblNumeroRondaMain);
             this.Controls.Add(this.btnRondaSiguienteMain);
@@ -304,6 +328,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).EndInit();
+            this.pnlEncabezado.ResumeLayout(false);
+            this.pnlEncabezado.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,6 +362,8 @@
         private System.Windows.Forms.Label lblNumeroRondaMain;
         private System.Windows.Forms.ToolStripMenuItem iniciarTorneoToolStripMenuItem;
         private System.Windows.Forms.Button btnIniciarTorneoMain;
+        private System.Windows.Forms.Panel pnlEncabezado;
+        private System.Windows.Forms.Label lblTituloTorneo;
     }
 }
 
